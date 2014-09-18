@@ -8,4 +8,4 @@ coreos:
       command: start
 
 ssh_authorized_keys:
-  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCltHm3vFFhRun3u2ka6pK7pUVh44jX2vwdCx6R4t6N4HyHWemf9WzGVhjFYupoxYTbtyqkCCKyMFXEFULRVsfRZ/7wl3IPZGsQMXUSDFYaPfhrpkvj8mJbghrSSj2rmlrKKgA2Jl0Y5jXR+W+sCsdnilquh/vWcWcbUlkcGlK0SYrkfVnfsmmSFhSWa56kCz69B35un3CuX4fEWvIW1bhq+6IruB4DewVlfz6pXE4fHUK0oiqlvlv7boLlR4kMoQ+49DjKlRyJdkHZJtaW3RvKBaF6qbTTPC24tETDKs1GIv2tTDmxl1O1RFG5J91kq70yp6KrB+NQ6i/AnLuRmRmF
+   - ssh-rsa <%= node.metadata['ssh-rsa'] %>
