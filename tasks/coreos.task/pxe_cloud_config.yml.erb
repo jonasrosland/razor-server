@@ -2,29 +2,25 @@
 
 coreos:
   units:
-    - name: etcd.service
-      command: start
-    - name: fleet.service
-      command: start
-    - name: format-ephemeral.service
+    - name: format-persistent.service
       command: start
       content: |
         [Unit]
-        Description=Formats the ephemeral drive
+        Description=Formats the persistent drive
         [Service]
         Type=oneshot
         RemainAfterExit=no
-        ExecStart=/usr/sbin/wipefs -f /dev/<%= node.metadata['ephemeral-drive'] %>
-        ExecStart=/usr/sbin/mkfs.btrfs -f -L ROOT /dev/<%= node.metadata['ephemeral-drive'] %>
+        ExecStart=/usr/sbin/wipefs -f /dev/<%= node.metadata['persistent-drive'] %>
+        ExecStart=/usr/sbin/mkfs.btrfs -f -L ROOT /dev/<%= node.metadata['persistent-drive'] %>
 
     - name: download-postinstall.service
       command: start
       content: |
         [Unit]
-        After=network-online.target
+        After=format-persistent.service
         Description=Download Razor post_install script
         Documentation=https://github.com/puppetlabs/razor-server
-        Requires=network-online.target
+        Requires=format-persistent.service
 
         [Service]
         ExecStart=/usr/bin/wget -O /root/post_install.sh <%= file_url("post_install") %>
